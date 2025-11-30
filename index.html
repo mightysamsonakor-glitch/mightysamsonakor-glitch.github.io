@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -27,12 +27,15 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- Custom CSS (Lab Assignment #9 — MUST BE LAST) -->
+  <!-- Custom CSS (Lab Assignment #9 & 10 — MUST BE LAST) -->
   <link href="assets/css/custom.css" rel="stylesheet">
 
 </head>
 
 <body class="index-page">
+
+  <!-- LAB 10: CSS-ONLY LOADER -->
+  <div id="loader" aria-hidden="true"></div>
 
   <!-- HEADER -->
   <header id="header" class="header d-flex flex-column justify-content-center">
@@ -54,7 +57,7 @@
   <main class="main">
 
     <!-- HERO -->
-    <section id="hero" class="hero section light-background">
+    <section id="hero" class="hero section light-background fade-section">
       <img src="assets/img/hero-bg.jpg" alt="Background image for hero section">
       <div class="container" data-aos="zoom-out">
         <div class="row justify-content-center">
@@ -74,7 +77,7 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="about section">
+    <section id="about" class="about section fade-section fade-delay-1">
       <div class="container section-title" data-aos="fade-up">
         <h2>About Me</h2>
         <p>
@@ -150,7 +153,7 @@
     </section>
 
     <!-- RESUME -->
-    <section id="resume" class="resume section">
+    <section id="resume" class="resume section fade-section fade-delay-2">
       <div class="container section-title" data-aos="fade-up">
         <h2>Resume</h2>
         <p>Summary of academic progress, engineering experience, and certifications.</p>
@@ -269,7 +272,7 @@
     </section>
 
     <!-- PORTFOLIO -->
-    <section id="portfolio" class="portfolio section">
+    <section id="portfolio" class="portfolio section fade-section fade-delay-3">
       <div class="container section-title" data-aos="fade-up">
         <h2>Portfolio</h2>
         <p>Some of my recent works and technical projects.</p>
@@ -343,7 +346,7 @@
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="services section">
+    <section id="services" class="services section fade-section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Services</h2>
         <p>Here are some of the technical and ICT-related services I offer.</p>
@@ -386,7 +389,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="contact section">
+    <section id="contact" class="contact section fade-section fade-delay-1">
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact Me</h2>
         <p>Reach out for collaboration, projects or inquiries.</p>
@@ -467,6 +470,13 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- LAB 10: hide loader when page is ready -->
+  <script>
+    window.addEventListener('load', function () {
+      document.body.classList.add('loaded');
+    });
+  </script>
 
 </body>
 </html>
