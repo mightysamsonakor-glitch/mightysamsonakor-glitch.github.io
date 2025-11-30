@@ -5,9 +5,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Montserrat:wght@500;700&display=swap');
 
 :root {
-  /* type scale */
-  --lab-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --lab-font-heading: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --lab-font-body: 'Inter', system-ui, sans-serif;
+  --lab-font-heading: 'Montserrat', system-ui, sans-serif;
 
   --lab-h1: clamp(2.4rem, 4vw, 3.4rem);
   --lab-h2: clamp(2rem, 3vw, 2.6rem);
@@ -20,7 +19,6 @@
   --lab-letter-wide: 0.06em;
   --lab-letter-normal: 0.01em;
 
-  /* spacing scale */
   --space-1: 0.5rem;
   --space-2: 0.75rem;
   --space-3: 1rem;
@@ -28,7 +26,6 @@
   --space-5: 2rem;
   --space-6: 3rem;
 
-  /* colors */
   --lab-bg-surface: #ffffff;
   --lab-bg-soft: #f3f4f6;
   --lab-border-soft: #e5e7eb;
@@ -41,7 +38,7 @@
   --lab-text-muted: #6b7280;
 }
 
-/* Base body text */
+/* Body */
 body {
   font-family: var(--lab-font-body);
   font-size: var(--lab-body);
@@ -51,9 +48,7 @@ body {
 }
 
 /* Headings */
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--lab-font-heading);
   font-weight: 800;
   line-height: var(--lab-line-heading);
@@ -61,20 +56,9 @@ h3 {
   color: #020617;
 }
 
-h1 {
-  font-size: var(--lab-h1);
-  margin-bottom: var(--space-3);
-}
-
-h2 {
-  font-size: var(--lab-h2);
-  margin-bottom: var(--space-2);
-}
-
-h3 {
-  font-size: var(--lab-h3);
-  margin-bottom: var(--space-2);
-}
+h1 { font-size: var(--lab-h1); margin-bottom: var(--space-3); }
+h2 { font-size: var(--lab-h2); margin-bottom: var(--space-2); }
+h3 { font-size: var(--lab-h3); margin-bottom: var(--space-2); }
 
 /* Paragraphs */
 p {
@@ -82,118 +66,67 @@ p {
   color: var(--lab-text-muted);
 }
 
-/* Small helper text */
-.small,
-small {
+/* Small text */
+small, .small {
   font-size: 0.85rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 /* ================================
-   LAB #9 – INTERACTIVE ELEMENTS
    LINKS + BUTTONS
    ================================ */
 
-/* Global links */
 a {
   color: var(--lab-primary);
   text-decoration: none;
   position: relative;
-  transition: color 0.2s ease, transform 0.15s ease;
+  transition: color 0.2s ease;
 }
 
 a::after {
-  content: '';
+  content: "";
   position: absolute;
+  bottom: -2px;
   left: 0;
-  bottom: -0.15em;
-  width: 0;
+  width: 0%;
   height: 2px;
-  background: linear-gradient(90deg, var(--lab-primary), var(--lab-primary-dark));
+  background: var(--lab-primary-dark);
   transition: width 0.25s ease;
 }
 
-a:hover::after {
-  width: 100%;
-}
+a:hover::after { width: 100%; }
+a:hover { color: var(--lab-primary-dark); }
 
-a:hover {
-  color: var(--lab-primary-dark);
-}
-
-a:active {
-  transform: translateY(1px);
-}
-
-/* Buttons (Bootstrap .btn + basic buttons) */
-.btn,
-button,
-input[type="submit"],
-input[type="button"] {
+/* Buttons */
+.btn, button, input[type="submit"] {
   font-family: var(--lab-font-heading);
   font-weight: 600;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-radius: 999px;
   padding: 0.7rem 1.7rem;
-  border: 1px solid transparent;
+  border-radius: 999px;
   background: var(--lab-primary);
-  color: #ffffff;
+  color: white;
+  border: none;
   box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
-  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  transition: 0.2s ease;
 }
 
-.btn-outline,
-.btn-outline-primary {
-  background: transparent;
-  color: var(--lab-primary);
-  border-color: var(--lab-primary);
-  box-shadow: none;
-}
-
-.btn:hover,
-button:hover,
-input[type="submit"]:hover,
-input[type="button"]:hover {
+.btn:hover {
   background: var(--lab-primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 16px 35px rgba(37, 99, 235, 0.45);
-}
-
-.btn:active,
-button:active,
-input[type="submit"]:active,
-input[type="button"]:active {
-  transform: translateY(1px) scale(0.99);
-  box-shadow: 0 6px 15px rgba(15, 23, 42, 0.25);
+  transform: translateY(-2px);
 }
 
 /* ================================
-   LAB #9 – SPACING SCALE & SURFACES
+   SPACING + SURFACES
    ================================ */
 
-/* Apply consistent vertical padding */
-section,
-.main-section {
+section {
   padding-top: var(--space-6);
   padding-bottom: var(--space-6);
 }
 
-/* Hero slightly larger */
-.hero,
-#hero {
-  padding-top: calc(var(--space-6) * 1.2);
-  padding-bottom: calc(var(--space-6) * 1.2);
-}
-
-/* Content blocks / cards */
-.lab-surface,
-.card,
-.service-item,
-.portfolio-item,
-.resume-item,
-.lab-card {
+.lab-surface, .card, .service-item, .portfolio-item, .resume-item {
   background: var(--lab-bg-surface);
   border-radius: 1.25rem;
   border: 1px solid var(--lab-border-soft);
@@ -201,313 +134,103 @@ section,
   padding: var(--space-4);
 }
 
-/* Space between stacked sections */
-section + section {
-  margin-top: var(--space-6);
-}
-
 /* ================================
-   LAB #9 – COMPONENT RESTYLES
-   Navbar + Back-to-top
+   NAV + BACK TO TOP
    ================================ */
 
-/* Sidebar header (left nav) */
 #header.header {
   background: rgba(15, 23, 42, 0.98);
   backdrop-filter: blur(16px);
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.65);
 }
 
-/* Sidebar nav links */
 #navmenu.navmenu a {
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #cbd5f5;
   border-radius: 999px;
   padding: 0.9rem 1.1rem;
-  transition: color 0.18s ease, background 0.18s ease, transform 0.12s ease;
-}
-
-#navmenu.navmenu a .navicon {
-  margin-right: 0.4rem;
-}
-
-#navmenu.navmenu a:hover,
-#navmenu.navmenu a.active,
-#navmenu.navmenu li:hover > a {
-  background: var(--lab-primary-soft);
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* Back-to-top button (uses .scroll-top in template) */
-.scroll-top {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 999px;
-  background: radial-gradient(circle at 30% 30%, #60a5fa, #1d4ed8);
-  color: #ffffff !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.55);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-}
-
-.scroll-top:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.7);
 }
 
 /* ================================
-   OPTIONAL – STYLED LISTS
+   OPTIONAL – CUSTOM BULLET LIST
    ================================ */
 
-/* Unordered list with custom bullets */
 .lab-list-bullet {
   list-style: none;
   padding-left: 0;
-  margin-left: 0;
 }
 
 .lab-list-bullet li {
   position: relative;
-  padding-left: 1.9rem;
-  margin-bottom: 0.9rem;
+  padding-left: 1.75rem;
 }
 
 .lab-list-bullet li::before {
-  content: '';
+  content: "";
   position: absolute;
+  width: 10px;
+  height: 10px;
   left: 0;
-  top: 0.45em;
-  width: 0.85rem;
-  height: 0.85rem;
-  border-radius: 999px;
-  background: radial-gradient(circle at 30% 30%, #f97316, #ea580c);
-  box-shadow: 0 0 0 2px #ffedd5;
-}
-
-/* Nested list */
-.lab-list-bullet li ul {
-  margin-top: 0.4rem;
-}
-
-/* Ordered list with CSS counters */
-.lab-list-counter {
-  counter-reset: labCounter;
-  list-style: none;
-  padding-left: 0;
-}
-
-.lab-list-counter li {
-  counter-increment: labCounter;
-  position: relative;
-  padding-left: 3.1rem; /* more space between pill and text */
-  margin-bottom: 0.9rem;
-}
-
-.lab-list-counter li::before {
-  content: counter(labCounter, decimal-leading-zero);
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%); /* vertically center number pill */
-  font-family: var(--lab-font-heading);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.85rem;
-  border-radius: 999px;
-  background: #020617;
-  color: #f9fafb;
+  top: 8px;
+  background: #f97316;
+  border-radius: 50%;
 }
 
 /* ================================
-   OPTIONAL – TABLE / DATA BLOCK
+   OPTIONAL – TABLE
    ================================ */
 
 .lab-table {
   width: 100%;
-  max-width: 920px;              /* keeps table from stretching too wide */
   border-collapse: collapse;
-  margin: var(--space-3) auto 0; /* center table */
-  font-size: 0.95rem;
 }
 
-.lab-table th,
-.lab-table td {
-  padding: 0.85rem 1.1rem;
-  text-align: left;
-}
-
-.lab-table thead th {
+.lab-table th {
   background: #0f172a;
-  color: #f9fafb;
+  color: white;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.8rem;
-}
-
-/* numeric columns (Years + Level) */
-.lab-table th.number,
-.lab-table td.number {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.lab-table tbody tr:nth-child(odd) {
-  background: #f9fafb;
-}
-
-.lab-table tbody tr:nth-child(even) {
-  background: #eef2ff;
-}
-
-.lab-table tbody tr:hover {
-  background: #e0e7ff;
 }
 
 /* ================================
-   ABOUT SECTION LAYOUT TWEAKS
+   OPTIONAL TASK A – ANIMATED GRADIENT
    ================================ */
 
-.about .row {
-  align-items: center;            /* align photo + text neatly */
+.hero {
+  background: linear-gradient(120deg, #1e3a8a, #2563eb, #3b82f6, #0ea5e9);
+  background-size: 400% 400%;
+  animation: gradientAnimation 12s ease infinite;
+  border-radius: 1rem;
 }
 
-.about img.img-fluid {
-  border-radius: 1.25rem;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
-  max-height: 420px;
-  object-fit: cover;
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
 }
 
-.about .content {
-  max-width: 720px;
-}
+/* ================================
+   OPTIONAL TASK B – FLOATING SHAPES
+   ================================ */
 
-.about .content ul {
-  margin-bottom: var(--space-3);
-}
-
-/* ==========================================
-   LAYOUT – KEEP CONTENT CLEAR OF SIDEBAR
-   ========================================== */
-
-@media (min-width: 992px) {
-  body.index-page .main {
-    margin-left: 260px !important; /* match sidebar width so text never hides */
-  }
-}
-
-/* Slightly more breathing room inside sections */
-.section .container {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-/* ==========================================
-   LAB 10 – LOADER (CSS ONLY)
-   ========================================== */
-
-#loader-wrapper {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top, #1e293b, #020617);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.4s ease;
-}
-
-#loader {
-  width: 60px;
-  height: 60px;
+.shape-circle {
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  border: 6px solid #cbd5f5;
-  border-top-color: var(--lab-primary);
-  border-right-color: var(--lab-primary);
-  box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.25);
+  background: rgba(37, 99, 235, 0.25);
+  position: absolute;
+  z-index: -1;
+  filter: blur(8px);
+  animation: floatShape 10s ease-in-out infinite;
 }
 
-/* Spinner animation */
-@keyframes loaderSpin {
-  to {
-    transform: rotate(360deg);
-  }
+.shape-circle.small {
+  width: 120px;
+  height: 120px;
+  background: rgba(14, 165, 233, 0.25);
+  animation-duration: 14s;
 }
 
-/* When page is ready, fade loader out */
-body.loaded #loader-wrapper {
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-}
-
-/* ==========================================
-   LAB 10 – CUSTOM ANIMATIONS
-   ========================================== */
-
-/* Hero fade-in animation */
-@keyframes heroFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Card floating animation on hover */
-@keyframes cardFloat {
-  from {
-    transform: translateY(0);
-    box-shadow: var(--lab-shadow-soft);
-  }
-  to {
-    transform: translateY(-10px);
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
-  }
-}
-
-/* Apply animations only when user allows motion */
-@media (prefers-reduced-motion: no-preference) {
-
-  #loader {
-    animation: loaderSpin 1s linear infinite;
-  }
-
-  #hero .container {
-    animation: heroFadeIn 0.9s ease-out both;
-  }
-
-  .lab-card {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .lab-card:hover {
-    animation: cardFloat 0.4s ease-out forwards;
-  }
-}
-
-/* Respect users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * ,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-
-  #loader-wrapper {
-    display: none;
-  }
+@keyframes floatShape {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(25px, -40px); }
+  100% { transform: translate(0, 0); }
 }
