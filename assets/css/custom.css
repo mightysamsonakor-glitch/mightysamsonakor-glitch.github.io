@@ -193,7 +193,7 @@ section,
 .service-item,
 .portfolio-item,
 .resume-item,
-.portfolio-box {
+.lab-card {
   background: var(--lab-bg-surface);
   border-radius: 1.25rem;
   border: 1px solid var(--lab-border-soft);
@@ -410,183 +410,104 @@ section + section {
 }
 
 /* ==========================================
-   LAB 10 – ANIMATIONS (FADE-IN + HOVER)
+   LAB 10 – LOADER (CSS ONLY)
    ========================================== */
 
-/* sections fade in when page loads */
-.fade-section {
+#loader-wrapper {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.4s ease;
+}
+
+#loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 6px solid #cbd5f5;
+  border-top-color: var(--lab-primary);
+  border-right-color: var(--lab-primary);
+  box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.25);
+}
+
+/* Spinner animation */
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* When page is ready, fade loader out */
+body.loaded #loader-wrapper {
   opacity: 0;
-  transform: translateY(28px);
-  animation: fadeUp 0.9s ease-out forwards;
+  pointer-events: none;
+  visibility: hidden;
 }
 
-/* small staggered delays */
-.fade-delay-1 {
-  animation-delay: 0.15s;
-}
-.fade-delay-2 {
-  animation-delay: 0.3s;
-}
-.fade-delay-3 {
-  animation-delay: 0.45s;
-}
+/* ==========================================
+   LAB 10 – CUSTOM ANIMATIONS
+   ========================================== */
 
-@keyframes fadeUp {
+/* Hero fade-in animation */
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Hover animation for social icons and portfolio cards */
-.social-links a,
-.portfolio-box {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.social-links a:hover,
-.portfolio-box:hover {
-  animation: pop 0.3s ease-out;
-}
-
-@keyframes pop {
-  0% {
-    transform: translateY(0) scale(1);
+/* Card floating animation on hover */
+@keyframes cardFloat {
+  from {
+    transform: translateY(0);
+    box-shadow: var(--lab-shadow-soft);
   }
-  50% {
-    transform: translateY(-3px) scale(1.04);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* subtle float for portfolio images */
-.gallery-img {
-  display: block;
-  border-radius: 1.25rem;
-}
-
-/* ==========================================
-   LAB 10 – CSS-ONLY LOADER
-   ========================================== */
-
-/* full-screen overlay while page loads */
-#loader {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 20% 20%, #1d4ed8, #020617);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-/* spinning ring */
-#loader::before {
-  content: "";
-  width: 64px;
-  height: 64px;
-  border-radius: 999px;
-  border: 4px solid rgba(239, 246, 255, 0.35);
-  border-top-color: #e5e7eb;
-  animation: spin 0.9s linear infinite;
-}
-
-@keyframes spin {
   to {
-    transform: rotate(360deg);
+    transform: translateY(-10px);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
   }
 }
 
-/* once body has .loaded, hide loader */
-body.loaded #loader {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
+/* Apply animations only when user allows motion */
+@media (prefers-reduced-motion: no-preference) {
 
-/* ==========================================
-   LAB 10 – OPTIONAL: GRADIENT + SHAPES
-   ========================================== */
-
-.hero,
-#hero {
-  position: relative;
-  overflow: hidden;
-}
-
-/* animated gradient overlay */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.35), transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.4), transparent 55%);
-  mix-blend-mode: soft-light;
-  opacity: 0.65;
-  pointer-events: none;
-  animation: gradientDrift 14s ease-in-out infinite alternate;
-}
-
-/* decorative floating circle */
-.hero::after {
-  content: "";
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  top: -60px;
-  right: -40px;
-  opacity: 0.6;
-  animation: floatShape 18s ease-in-out infinite alternate;
-}
-
-@keyframes gradientDrift {
-  0% {
-    transform: translate3d(0, 0, 0);
+  #loader {
+    animation: loaderSpin 1s linear infinite;
   }
-  100% {
-    transform: translate3d(-40px, 20px, 0);
+
+  #hero .container {
+    animation: heroFadeIn 0.9s ease-out both;
+  }
+
+  .lab-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .lab-card:hover {
+    animation: cardFloat 0.4s ease-out forwards;
   }
 }
 
-@keyframes floatShape {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(-30px, 40px, 0) scale(1.1);
-  }
-}
-
-/* ==========================================
-   LAB 10 – PREFERS-REDUCED-MOTION SUPPORT
-   ========================================== */
-
+/* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
+  * ,
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
 
-  #loader::before {
-    animation: none !important;
-  }
-
-  .fade-section {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .hero::before,
-  .hero::after {
-    animation: none !important;
+  #loader-wrapper {
+    display: none;
   }
 }

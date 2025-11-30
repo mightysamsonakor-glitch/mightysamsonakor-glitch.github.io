@@ -27,15 +27,17 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- Custom CSS (Lab Assignment #9 & 10 — MUST BE LAST) -->
+  <!-- Custom CSS (Lab Assignment #9/10 — MUST BE LAST) -->
   <link href="assets/css/custom.css" rel="stylesheet">
 
 </head>
 
 <body class="index-page">
 
-  <!-- LAB 10: CSS-ONLY LOADER -->
-  <div id="loader" aria-hidden="true"></div>
+  <!-- CSS-ONLY LOADER (LAB 10) -->
+  <div id="loader-wrapper" aria-hidden="true">
+    <div id="loader"></div>
+  </div>
 
   <!-- HEADER -->
   <header id="header" class="header d-flex flex-column justify-content-center">
@@ -57,7 +59,7 @@
   <main class="main">
 
     <!-- HERO -->
-    <section id="hero" class="hero section light-background fade-section">
+    <section id="hero" class="hero section light-background">
       <img src="assets/img/hero-bg.jpg" alt="Background image for hero section">
       <div class="container" data-aos="zoom-out">
         <div class="row justify-content-center">
@@ -77,7 +79,7 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="about section fade-section fade-delay-1">
+    <section id="about" class="about section">
       <div class="container section-title" data-aos="fade-up">
         <h2>About Me</h2>
         <p>
@@ -153,7 +155,7 @@
     </section>
 
     <!-- RESUME -->
-    <section id="resume" class="resume section fade-section fade-delay-2">
+    <section id="resume" class="resume section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Resume</h2>
         <p>Summary of academic progress, engineering experience, and certifications.</p>
@@ -165,7 +167,7 @@
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <h3 class="resume-title">Summary</h3>
 
-            <div class="resume-item pb-0">
+            <div class="resume-item pb-0 lab-card">
               <h4>Mighty Samson Akor</h4>
               <p><em>Technical Engineer with 10+ years experience in electrical systems, MTU ship engines, mechanical troubleshooting, installation, maintenance, and ICT development.</em></p>
               <ul>
@@ -177,19 +179,19 @@
 
             <h3 class="resume-title">Education</h3>
 
-            <div class="resume-item">
+            <div class="resume-item lab-card">
               <h4>Bachelor – Information &amp; Communication Technologies</h4>
               <h5>2024 – Present</h5>
               <p><em>Vilnius Gediminas Technical University, Lithuania</em></p>
             </div>
 
-            <div class="resume-item">
+            <div class="resume-item lab-card">
               <h4>HND – Electrical/Electronics Engineering</h4>
               <h5>2012</h5>
               <p><em>IMT Enugu, Nigeria</em></p>
             </div>
 
-            <div class="resume-item">
+            <div class="resume-item lab-card">
               <h4>OND – Electrical/Electronics Engineering</h4>
               <h5>2007</h5>
               <p><em>IMT Enugu, Nigeria</em></p>
@@ -200,7 +202,7 @@
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <h3 class="resume-title">Professional Experience</h3>
 
-            <div class="resume-item">
+            <div class="resume-item lab-card">
               <h4>Maintenance Engineer — The Garden Inn Ltd</h4>
               <h5>2021 – Present</h5>
               <p><em>Vilnius, Lithuania</em></p>
@@ -211,7 +213,7 @@
               </ul>
             </div>
 
-            <div class="resume-item">
+            <div class="resume-item lab-card">
               <h4>MTU Ship Engine Specialist — Blueflag Ltd</h4>
               <h5>2017</h5>
               <ul>
@@ -221,7 +223,7 @@
               </ul>
             </div>
 
-            <div class="resume-item">
+            <div class="resume-item lab-card">
               <h4>Technical Engineer — Mightsmith Enterprises</h4>
               <h5>2011</h5>
               <ul>
@@ -272,7 +274,7 @@
     </section>
 
     <!-- PORTFOLIO -->
-    <section id="portfolio" class="portfolio section fade-section fade-delay-3">
+    <section id="portfolio" class="portfolio section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Portfolio</h2>
         <p>Some of my recent works and technical projects.</p>
@@ -283,7 +285,7 @@
 
           <!-- ITEM 1 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
-            <div class="portfolio-box">
+            <div class="portfolio-box lab-card">
               <a href="assets/img/custom/mtu4.jpg"
                  class="portfolio-lightbox glightbox"
                  data-gallery="portfolio-gallery">
@@ -298,7 +300,7 @@
 
           <!-- ITEM 2 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
-            <div class="portfolio-box">
+            <div class="portfolio-box lab-card">
               <a href="assets/img/custom/mtu3.jpg"
                  class="portfolio-lightbox glightbox"
                  data-gallery="portfolio-gallery">
@@ -313,7 +315,7 @@
 
           <!-- ITEM 3 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
-            <div class="portfolio-box">
+            <div class="portfolio-box lab-card">
               <a href="assets/img/custom/mtu2.jpg"
                  class="portfolio-lightbox glightbox"
                  data-gallery="portfolio-gallery">
@@ -328,7 +330,7 @@
 
           <!-- ITEM 4 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
-            <div class="portfolio-box">
+            <div class="portfolio-box lab-card">
               <a href="assets/img/custom/mtu1.jpg"
                  class="portfolio-lightbox glightbox"
                  data-gallery="portfolio-gallery">
@@ -346,7 +348,7 @@
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="services section fade-section">
+    <section id="services" class="services section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Services</h2>
         <p>Here are some of the technical and ICT-related services I offer.</p>
@@ -356,7 +358,7 @@
         <div class="row gy-4">
 
           <!-- SERVICE 1: LOCAL VIDEO -->
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-4 col-md-6 lab-card">
             <h4>Technical Repair Demo Video</h4>
             <video style="width:100%;" controls>
               <source src="assets/media/repair-demo.mp4" type="video/mp4">
@@ -365,7 +367,7 @@
           </div>
 
           <!-- SERVICE 2: YOUTUBE EMBED -->
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-4 col-md-6 lab-card">
             <h4>Training Video</h4>
             <iframe
               style="width:100%; height:215px;"
@@ -376,7 +378,7 @@
           </div>
 
           <!-- SERVICE 3: AUDIO -->
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-4 col-md-6 lab-card">
             <h4>Audio Explanation</h4>
             <audio controls>
               <source src="assets/media/audio-sample.mp3" type="audio/mp3">
@@ -389,7 +391,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="contact section fade-section fade-delay-1">
+    <section id="contact" class="contact section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact Me</h2>
         <p>Reach out for collaboration, projects or inquiries.</p>
@@ -399,7 +401,7 @@
         <div class="row gy-4">
 
           <div class="col-lg-4">
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-item d-flex lab-card" data-aos="fade-up" data-aos-delay="200">
               <i class="bi bi-geo-alt"></i>
               <div>
                 <h3>Address</h3>
@@ -407,7 +409,7 @@
               </div>
             </div>
 
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+            <div class="info-item d-flex lab-card" data-aos="fade-up" data-aos-delay="300">
               <i class="bi bi-phone"></i>
               <div>
                 <h3>Phone</h3>
@@ -415,7 +417,7 @@
               </div>
             </div>
 
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+            <div class="info-item d-flex lab-card" data-aos="fade-up" data-aos-delay="400">
               <i class="bi bi-envelope"></i>
               <div>
                 <h3>Email</h3>
@@ -468,15 +470,15 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-
   <!-- LAB 10: hide loader when page is ready -->
   <script>
-    window.addEventListener('load', function () {
-      document.body.classList.add('loaded');
+    window.addEventListener("load", function () {
+      document.body.classList.add("loaded");
     });
   </script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
 
 </body>
 </html>
