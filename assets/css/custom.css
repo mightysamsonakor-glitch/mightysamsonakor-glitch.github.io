@@ -200,7 +200,7 @@ section {
 
 /* ================================
    LAB 10 – ANIMATED GRADIENT HERO
-   (OPTIONAL TASK A)
+   (OPTIONAL TASK 1)
    ================================ */
 
 .hero {
@@ -247,8 +247,13 @@ section {
 }
 
 /* ================================
-   OPTIONAL TASK B – FLOATING SHAPES
+   OPTIONAL TASK 2 – FLOATING SHAPES
    ================================ */
+
+/* position context for shapes in portfolio section */
+.portfolio.section {
+  position: relative;
+}
 
 .shape-circle {
   width: 180px;
