@@ -327,3 +327,110 @@ section {
     animation: none !important;
   }
 }
+
+/* ================================
+   HW11 – CONTACT FORM + OUTPUT
+   ================================ */
+
+.lab-contact-card {
+  background: var(--lab-bg-surface);
+  border-radius: 1.25rem;
+  border: 1px solid var(--lab-border-soft);
+  box-shadow: var(--lab-shadow-soft);
+  padding: var(--space-4);
+}
+
+.lab-contact-card .form-label {
+  font-weight: 600;
+  font-family: var(--lab-font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.lab-contact-card .form-control,
+.lab-contact-card textarea {
+  border-radius: 0.9rem;
+  border-color: #e5e7eb;
+}
+
+.lab-contact-card .form-control:focus,
+.lab-contact-card textarea:focus {
+  border-color: var(--lab-primary);
+  box-shadow: 0 0 0 0.15rem var(--lab-primary-soft);
+}
+
+/* Error messages used for real-time validation */
+.lab-error-message {
+  display: block;
+  min-height: 1rem;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: #dc2626;
+}
+
+/* Output box where we print submitted data */
+.lab-form-output {
+  background: var(--lab-bg-soft);
+  border-radius: 1rem;
+  padding: var(--space-3);
+  border: 1px dashed var(--lab-border-soft);
+  font-size: 0.95rem;
+}
+
+.lab-form-output p {
+  margin-bottom: 0.25rem;
+}
+
+/* Average line */
+.lab-average-output {
+  font-weight: 600;
+}
+
+/* Color-coded average values */
+.average-low {
+  color: #dc2626; /* red for 0–4 */
+}
+
+.average-medium {
+  color: #ea580c; /* orange for 4–7 */
+}
+
+.average-high {
+  color: #16a34a; /* green for 7–10 */
+}
+
+/* ================================
+   HW11 – SUCCESS POPUP
+   ================================ */
+
+.lab-success-popup {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #f9fafb;
+  font-size: 0.9rem;
+  box-shadow: var(--lab-shadow-soft);
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.lab-success-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Prefer reduced motion: don't animate popup */
+@media (prefers-reduced-motion: reduce) {
+  .lab-success-popup {
+    transition: none;
+  }
+}

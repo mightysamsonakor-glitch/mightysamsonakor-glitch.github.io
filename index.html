@@ -27,7 +27,7 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- Custom CSS (Labs 9 & 10 — MUST BE LAST) -->
+  <!-- Custom CSS (Labs 9 & 10 & HW11 — MUST BE LAST) -->
   <link href="assets/css/custom.css" rel="stylesheet">
 
 </head>
@@ -401,6 +401,7 @@
       <div class="container" data-aos="fade" data-aos-delay="100">
         <div class="row gy-4">
 
+          <!-- LEFT SIDE: STATIC INFO -->
           <div class="col-lg-4">
             <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
               <i class="bi bi-geo-alt"></i>
@@ -424,6 +425,72 @@
                 <h3>Email</h3>
                 <p>mightysamsonakor@gmail.com</p>
               </div>
+            </div>
+          </div>
+
+          <!-- RIGHT SIDE: HW11 CONTACT FORM -->
+          <div class="col-lg-8">
+            <div class="lab-contact-card" data-aos="fade-up" data-aos-delay="250">
+              <form id="contact-form" novalidate>
+                <div class="row gy-3">
+                  <div class="col-md-6">
+                    <label for="firstName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    <small class="lab-error-message" id="error-firstName"></small>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="surname" name="surname" required>
+                    <small class="lab-error-message" id="error-surname"></small>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <small class="lab-error-message" id="error-email"></small>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="+370 6xx xxxxx" required>
+                    <small class="lab-error-message" id="error-phone"></small>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+                    <small class="lab-error-message" id="error-address"></small>
+                  </div>
+
+                  <!-- RATING QUESTIONS (1–10) -->
+                  <div class="col-md-4">
+                    <label for="rating1" class="form-label">Service quality (1–10)</label>
+                    <input type="number" class="form-control" id="rating1" name="rating1" min="1" max="10" required>
+                    <small class="lab-error-message" id="error-rating1"></small>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="rating2" class="form-label">Communication (1–10)</label>
+                    <input type="number" class="form-control" id="rating2" name="rating2" min="1" max="10" required>
+                    <small class="lab-error-message" id="error-rating2"></small>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="rating3" class="form-label">Reliability (1–10)</label>
+                    <input type="number" class="form-control" id="rating3" name="rating3" min="1" max="10" required>
+                    <small class="lab-error-message" id="error-rating3"></small>
+                  </div>
+
+                  <div class="col-12 text-end mt-3">
+                    <button type="submit" id="contact-submit" class="btn" disabled>Submit</button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- AREA WHERE JS WILL PRINT FORM DATA -->
+              <div id="form-output" class="lab-form-output d-none mt-4"></div>
+              <p id="average-output" class="lab-average-output mt-2"></p>
             </div>
           </div>
 
@@ -459,6 +526,12 @@
 
   <div id="preloader"></div>
 
+  <!-- Toast-style popup for successful submission -->
+  <div id="form-success-popup" class="lab-success-popup" role="status" aria-live="polite">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    <span>Form submitted successfully!</span>
+  </div>
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -473,6 +546,9 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- HW11 Custom JS – MUST BE LAST -->
+  <script src="assets/js/custom.js"></script>
 
 </body>
 </html>
