@@ -279,3 +279,194 @@
     });
   });
 })();
+
+/* =======================================
+   MEMORY GAME – FLIP CARD LOGIC (NEW)
+   ======================================= */
+
+(function () {
+  "use strict";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const boardEl = document.getElementById("mg-board");
+    const movesEl = document.getElementById("mg-moves");
+    const matchesEl = document.getElementById("mg-matches");
+    const messageEl = document.getElementById("mg-message");
+    const diffEl = document.getElementById("mg-difficulty");
+    const startBtn = document.getElementById("mg-start");
+    const restartBtn = document.getElementById("mg-restart");
+
+    if (!boardEl || !movesEl || !matchesEl || !messageEl || !diffEl || !startBtn || !restartBtn) {
+      return; // section not present
+    }
+
+    // At least six unique items
+    const MG_ICONS = ["🍎", "🚗", "🐶", "⚽", "🎧", "📚", "🌟", "🍕", "🎲", "🚀"];
+
+    let mgDifficulty = "easy";
+    let mgDeck = [];
+    let mgFirstCard = null;
+    let mgSecondCard = null;
+    let mgLockBoard = false;
+    let mgMoves = 0;
+    let mgMatches = 0;
+    let mgTotalPairs = 0;
+    let mgGameStarted = false;
+
+    // ---------- Helpers ----------
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function createDeck() {
+      const isEasy = mgDifficulty === "easy";
+      // Easy: 4x3 => 12 cards => 6 pairs
+      // Hard: 6x4 => 24 cards => 12 pairs
+      const pairCount = isEasy ? 6 : 12;
+      const chosenIcons = MG_ICONS.slice(0, pairCount);
+
+      mgTotalPairs = pairCount;
+
+      const cards = [];
+      chosenIcons.forEach((icon, index) => {
+        const pairId = index;
+        cards.push(
+          { id: `${pairId}-a`, icon, pairId },
+          { id: `${pairId}-b`, icon, pairId }
+        );
+      });
+
+      mgDeck = shuffleArray(cards);
+    }
+
+    function renderBoard() {
+      boardEl.innerHTML = "";
+      boardEl.classList.remove("easy", "hard");
+      boardEl.classList.add(mgDifficulty);
+
+      mgDeck.forEach((card) => {
+        const cardEl = document.createElement("div");
+        cardEl.classList.add("mg-card");
+        cardEl.dataset.id = card.id;
+        cardEl.dataset.pairId = card.pairId;
+
+        cardEl.innerHTML = `
+          <div class="mg-card-inner">
+            <div class="mg-card-face mg-card-front"></div>
+            <div class="mg-card-face mg-card-back">${card.icon}</div>
+          </div>
+        `;
+
+        cardEl.addEventListener("click", function () {
+          handleCardClick(cardEl);
+        });
+
+        boardEl.appendChild(cardEl);
+      });
+    }
+
+    function resetStats() {
+      mgMoves = 0;
+      mgMatches = 0;
+      mgFirstCard = null;
+      mgSecondCard = null;
+      mgLockBoard = false;
+      mgGameStarted = false;
+      updateStatsUI();
+      messageEl.textContent = "";
+    }
+
+    function updateStatsUI() {
+      movesEl.textContent = mgMoves;
+      if (mgTotalPairs > 0) {
+        matchesEl.textContent = `${mgMatches} / ${mgTotalPairs}`;
+      } else {
+        matchesEl.textContent = "0";
+      }
+    }
+
+    function startGame() {
+      resetStats();
+      createDeck();
+      renderBoard();
+      mgGameStarted = true;
+      restartBtn.disabled = false;
+    }
+
+    function handleCardClick(cardEl) {
+      if (!mgGameStarted) return;
+      if (mgLockBoard) return;
+      if (cardEl.classList.contains("flipped") || cardEl.classList.contains("matched")) return;
+
+      cardEl.classList.add("flipped");
+
+      if (!mgFirstCard) {
+        mgFirstCard = cardEl;
+        return;
+      }
+
+      mgSecondCard = cardEl;
+      mgLockBoard = true;
+      mgMoves++;
+      updateStatsUI();
+      checkForMatch();
+    }
+
+    function checkForMatch() {
+      const firstPairId = mgFirstCard.dataset.pairId;
+      const secondPairId = mgSecondCard.dataset.pairId;
+
+      if (firstPairId === secondPairId) {
+        mgFirstCard.classList.add("matched");
+        mgSecondCard.classList.add("matched");
+        mgMatches++;
+        updateStatsUI();
+        resetTurn();
+
+        if (mgMatches === mgTotalPairs) {
+          showWinMessage();
+        }
+      } else {
+        setTimeout(() => {
+          mgFirstCard.classList.remove("flipped");
+          mgSecondCard.classList.remove("flipped");
+          resetTurn();
+        }, 1000);
+      }
+    }
+
+    function resetTurn() {
+      mgFirstCard = null;
+      mgSecondCard = null;
+      mgLockBoard = false;
+    }
+
+    function showWinMessage() {
+      messageEl.textContent = `You won! Completed in ${mgMoves} moves. 🎉`;
+    }
+
+    // ---------- Event bindings ----------
+
+    startBtn.addEventListener("click", function () {
+      startGame();
+    });
+
+    restartBtn.addEventListener("click", function () {
+      startGame();
+    });
+
+    diffEl.addEventListener("change", function (e) {
+      mgDifficulty = e.target.value;
+      // When difficulty changes, reinitialize game
+      startGame();
+    });
+
+    // initial stats
+    updateStatsUI();
+  });
+})();

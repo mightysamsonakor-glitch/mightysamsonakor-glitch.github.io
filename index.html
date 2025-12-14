@@ -43,6 +43,10 @@
         <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i><span>Home</span></a></li>
         <li><a href="#about"><i class="bi bi-person navicon"></i><span>About</span></a></li>
         <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Resume</span></a></li>
+
+        <!-- NEW: Memory Game nav item -->
+        <li><a href="#memory-game"><i class="bi bi-grid-3x3-gap navicon"></i><span>Memory Game</span></a></li>
+
         <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li>
         <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li>
         <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
@@ -266,6 +270,60 @@
         </div>
         <!-- END LAB 9 OPTIONAL TABLE -->
 
+      </div>
+    </section>
+
+    <!-- ===============================
+         MEMORY GAME SECTION (NEW)
+         =============================== -->
+    <section id="memory-game" class="section memory-game-section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Memory Game</h2>
+        <p>Test your memory by matching pairs of icons. Choose a difficulty level and try to finish with the fewest moves.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          <!-- Left: controls + stats -->
+          <div class="col-lg-4">
+            <div class="mg-panel lab-surface">
+              <h3 class="mb-3">Game Controls</h3>
+
+              <div class="mg-controls">
+                <label for="mg-difficulty" class="form-label mb-0">Difficulty</label>
+                <select id="mg-difficulty" class="form-select form-select-sm">
+                  <option value="easy">Easy (4 × 3)</option>
+                  <option value="hard">Hard (6 × 4)</option>
+                </select>
+
+                <div class="d-flex gap-2 mt-3">
+                  <button id="mg-start" type="button" class="btn btn-sm">Start</button>
+                  <button id="mg-restart" type="button" class="btn btn-sm" disabled>Restart</button>
+                </div>
+              </div>
+
+              <div class="mg-stats mt-3">
+                <div>
+                  <div class="small text-uppercase text-muted">Moves</div>
+                  <div class="fs-5"><span id="mg-moves">0</span></div>
+                </div>
+                <div>
+                  <div class="small text-uppercase text-muted">Matched pairs</div>
+                  <div class="fs-5"><span id="mg-matches">0</span></div>
+                </div>
+              </div>
+
+              <div id="mg-message" class="mg-message mt-3" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <!-- Right: game board -->
+          <div class="col-lg-8">
+            <div class="mg-board-wrapper lab-surface">
+              <div id="mg-board" class="mg-board easy" aria-label="Memory game board"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -547,7 +605,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- HW11 Custom JS – MUST BE LAST -->
+  <!-- HW11 + Memory Game JS – MUST BE LAST -->
   <script src="assets/js/custom.js"></script>
 
 </body>

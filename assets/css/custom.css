@@ -45,7 +45,7 @@ body {
   line-height: var(--lab-line-body);
   letter-spacing: var(--lab-letter-normal);
   color: var(--lab-text-main);
-  overflow-x: hidden; /* prevent sideways scroll / cut-off */
+  overflow-x: hidden;
 }
 
 /* Headings */
@@ -74,9 +74,7 @@ small, .small {
   text-transform: uppercase;
 }
 
-/* ================================
-   LINKS + BUTTONS
-   ================================ */
+/* LINKS + BUTTONS */
 
 a {
   color: var(--lab-primary);
@@ -99,7 +97,6 @@ a::after {
 a:hover::after { width: 100%; }
 a:hover { color: var(--lab-primary-dark); }
 
-/* Buttons */
 .btn, button, input[type="submit"] {
   font-family: var(--lab-font-heading);
   font-weight: 600;
@@ -118,9 +115,7 @@ a:hover { color: var(--lab-primary-dark); }
   transform: translateY(-2px);
 }
 
-/* ================================
-   SPACING + SURFACES
-   ================================ */
+/* SPACING + SURFACES */
 
 section {
   padding-top: var(--space-6);
@@ -135,16 +130,13 @@ section {
   padding: var(--space-4);
 }
 
-/* ================================
-   NAV + BACK TO TOP
-   ================================ */
+/* NAV + BACK TO TOP */
 
 #header.header {
   background: rgba(15, 23, 42, 0.98);
   backdrop-filter: blur(16px);
 }
 
-/* ensure main content is offset from sidebar on large screens */
 @media (min-width: 992px) {
   body.index-page .main {
     margin-left: 260px !important;
@@ -158,9 +150,7 @@ section {
   padding: 0.9rem 1.1rem;
 }
 
-/* ================================
-   OPTIONAL – CUSTOM BULLET LIST
-   ================================ */
+/* CUSTOM BULLET LIST */
 
 .lab-list-bullet {
   list-style: none;
@@ -183,9 +173,7 @@ section {
   border-radius: 50%;
 }
 
-/* ================================
-   OPTIONAL – TABLE
-   ================================ */
+/* TABLE */
 
 .lab-table {
   width: 100%;
@@ -198,10 +186,7 @@ section {
   text-transform: uppercase;
 }
 
-/* ================================
-   LAB 10 – ANIMATED GRADIENT HERO
-   (OPTIONAL TASK 1)
-   ================================ */
+/* HERO GRADIENT (LAB 10) */
 
 .hero {
   background: linear-gradient(120deg, #1e3a8a, #2563eb, #3b82f6, #0ea5e9);
@@ -212,7 +197,6 @@ section {
   overflow: hidden;
 }
 
-/* soften the hero background image under the gradient */
 .hero > img {
   opacity: 0.15;
 }
@@ -223,10 +207,7 @@ section {
   100% { background-position: 0% 50%; }
 }
 
-/* ================================
-   LAB 10 – FADE-IN CONTENT
-   (SECOND CUSTOM ANIMATION)
-   ================================ */
+/* FADE-IN ANIMATION */
 
 .lab-fade-in {
   opacity: 0;
@@ -246,11 +227,8 @@ section {
   }
 }
 
-/* ================================
-   OPTIONAL TASK 2 – FLOATING SHAPES
-   ================================ */
+/* FLOATING SHAPES */
 
-/* position context for shapes in portfolio section */
 .portfolio.section {
   position: relative;
 }
@@ -279,9 +257,7 @@ section {
   100% { transform: translate(0, 0); }
 }
 
-/* ================================
-   LAB 10 – CSS-ONLY LOADER
-   ================================ */
+/* LOADER */
 
 #preloader {
   position: fixed;
@@ -293,7 +269,6 @@ section {
   z-index: 9999;
 }
 
-/* spinner ring */
 #preloader::before {
   content: "";
   width: 54px;
@@ -306,14 +281,10 @@ section {
 }
 
 @keyframes preloaderSpin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-/* ================================
-   LAB 10 – PREFERS REDUCED MOTION
-   ================================ */
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -322,7 +293,6 @@ section {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-
   #preloader::before {
     animation: none !important;
   }
@@ -332,105 +302,194 @@ section {
    HW11 – CONTACT FORM + OUTPUT
    ================================ */
 
-.lab-contact-card {
-  background: var(--lab-bg-surface);
-  border-radius: 1.25rem;
+/* Contact form card */
+.lab-form-card {
+  background: #ffffff;
+  padding: 1.8rem;
   border: 1px solid var(--lab-border-soft);
-  box-shadow: var(--lab-shadow-soft);
-  padding: var(--space-4);
-}
-
-.lab-contact-card .form-label {
-  font-weight: 600;
-  font-family: var(--lab-font-heading);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-
-.lab-contact-card .form-control,
-.lab-contact-card textarea {
-  border-radius: 0.9rem;
-  border-color: #e5e7eb;
-}
-
-.lab-contact-card .form-control:focus,
-.lab-contact-card textarea:focus {
-  border-color: var(--lab-primary);
-  box-shadow: 0 0 0 0.15rem var(--lab-primary-soft);
-}
-
-/* Error messages used for real-time validation */
-.lab-error-message {
-  display: block;
-  min-height: 1rem;
-  margin-top: 0.15rem;
-  font-size: 0.78rem;
-  color: #dc2626;
-}
-
-/* Output box where we print submitted data */
-.lab-form-output {
-  background: var(--lab-bg-soft);
   border-radius: 1rem;
-  padding: var(--space-3);
-  border: 1px dashed var(--lab-border-soft);
-  font-size: 0.95rem;
+  box-shadow: var(--lab-shadow-soft);
 }
 
-.lab-form-output p {
-  margin-bottom: 0.25rem;
+/* Inputs */
+.lab-form-card .form-control {
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.75rem;
 }
 
-/* Average line */
-.lab-average-output {
-  font-weight: 600;
+/* Error message */
+.lab-error-message {
+  font-size: 0.8rem;
+  color: #dc2626;
+  min-height: 1rem;
+  margin-top: 1px;
 }
 
-/* Color-coded average values */
-.average-low {
-  color: #dc2626; /* red for 0–4 */
+/* Submit button disabled */
+#contact-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.average-medium {
-  color: #ea580c; /* orange for 4–7 */
+/* Output container (used by HW11 JS) */
+#contact-output,
+#form-output {
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid #e2e8f0;
 }
 
-.average-high {
-  color: #16a34a; /* green for 7–10 */
+#contact-output p,
+#form-output p {
+  margin-bottom: 0.5rem;
+  color: #1e293b;
 }
 
-/* ================================
-   HW11 – SUCCESS POPUP
-   ================================ */
+/* Rating colors */
+.lab-rating-red { color: #dc2626 !important; }
+.lab-rating-orange { color: #f97316 !important; }
+.lab-rating-green { color: #16a34a !important; }
 
+.average-low { color: #dc2626; font-weight: 600; }
+.average-medium { color: #f97316; font-weight: 600; }
+.average-high { color: #16a34a; font-weight: 600; }
+
+/* Success popup */
 .lab-success-popup {
   position: fixed;
-  right: 1.5rem;
-  bottom: 1.5rem;
-  z-index: 1050;
-  display: flex;
-  align-items: center;
-  padding: 0.9rem 1.4rem;
-  border-radius: 999px;
+  bottom: 24px;
+  right: 24px;
   background: #16a34a;
-  color: #f9fafb;
-  font-size: 0.9rem;
-  box-shadow: var(--lab-shadow-soft);
-  opacity: 0;
-  transform: translateY(20px);
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  color: white;
+  padding: 0.9rem 1.4rem;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  display: none;
+  animation: popupFade 0.4s ease-out;
+  z-index: 99999;
 }
 
 .lab-success-popup.show {
-  opacity: 1;
-  transform: translateY(0);
+  display: inline-flex;
+  align-items: center;
 }
 
-/* Prefer reduced motion: don't animate popup */
-@media (prefers-reduced-motion: reduce) {
-  .lab-success-popup {
-    transition: none;
+@keyframes popupFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================
+   MEMORY GAME STYLES (NEW)
+   ================================ */
+
+.memory-game-section .mg-panel {
+  border-radius: 1.25rem;
+  background: var(--lab-bg-surface);
+  border: 1px solid var(--lab-border-soft);
+  box-shadow: var(--lab-shadow-soft);
+}
+
+.mg-board-wrapper {
+  border-radius: 1.25rem;
+  background: var(--lab-bg-soft);
+  border: 1px dashed var(--lab-border-soft);
+}
+
+/* Controls + stats */
+
+.mg-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mg-stats {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-end;
+  margin-top: 0.5rem;
+}
+
+/* Win / status message */
+.mg-message {
+  min-height: 1.6rem;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* Board grid */
+
+.mg-board {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.8rem;
+}
+
+/* Easy: 4x3 (4 columns) */
+.mg-board.easy {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Hard: 6x4 (6 columns) */
+.mg-board.hard {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Cards */
+
+.mg-card {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* square cards */
+  perspective: 700px;
+  cursor: pointer;
+}
+
+.mg-card-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.mg-card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.85rem;
+  backface-visibility: hidden;
+}
+
+/* front (back of card visually) */
+.mg-card-front {
+  background: #1f2937;
+}
+
+/* back (shows emoji / icon) */
+.mg-card-back {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  font-size: 1.9rem;
+  transform: rotateY(180deg);
+}
+
+/* flipped / matched state */
+.mg-card.flipped .mg-card-inner,
+.mg-card.matched .mg-card-inner {
+  transform: rotateY(180deg);
+}
+
+.mg-card.matched .mg-card-back {
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.7);
+}
+
+/* small screens tweaks */
+@media (max-width: 575.98px) {
+  .mg-board.easy {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
