@@ -1,5 +1,5 @@
 // assets/js/custom.js
-// Homework 11 – Contact form logic, validation, average rating & popup
+// Contact form logic + Memory Game
 
 (function () {
   "use strict";
@@ -21,10 +21,6 @@
     const formOutput = document.getElementById("form-output");
     const averageOutput = document.getElementById("average-output");
     const successPopup = document.getElementById("form-success-popup");
-
-    /* ----------------------------
-       SIMPLE HELPERS
-       ---------------------------- */
 
     function setError(id, message) {
       const el = document.getElementById("error-" + id);
@@ -52,10 +48,6 @@
       if (value === "") return NaN;
       return Number(value);
     }
-
-    /* ----------------------------
-       VALIDATION RULES
-       ---------------------------- */
 
     function validateName(input, id) {
       const value = input.value.trim();
@@ -87,21 +79,18 @@
     }
 
     function maskPhone() {
-      // keep digits only
       let digits = phoneInput.value.replace(/\D/g, "");
-
-      // ensure Lithuanian prefix 3706...
       if (!digits.startsWith("3706")) {
         const tail = digits.replace(/^370|^86|^0/, "");
         digits = "3706" + tail.slice(0, 7);
       } else {
-        digits = digits.slice(0, 11); // 3706 + 7 digits
+        digits = digits.slice(0, 11);
       }
 
-      const country = digits.slice(0, 3); // 370
-      const first = digits.slice(3, 4);   // 6
-      const mid = digits.slice(4, 6);     // xx
-      const end = digits.slice(6);        // xxxxx
+      const country = digits.slice(0, 3);
+      const first = digits.slice(3, 4);
+      const mid = digits.slice(4, 6);
+      const end = digits.slice(6);
 
       let formatted = "+";
       if (country) formatted += country;
@@ -185,12 +174,12 @@
       submitBtn.disabled = !hasValues || Boolean(anyError);
     }
 
-    /* ----------------------------
-       REAL-TIME VALIDATION HOOKS
-       ---------------------------- */
-
-    firstNameInput.addEventListener("input", () => validateName(firstNameInput, "firstName"));
-    surnameInput.addEventListener("input", () => validateName(surnameInput, "surname"));
+    firstNameInput.addEventListener("input", () =>
+      validateName(firstNameInput, "firstName")
+    );
+    surnameInput.addEventListener("input", () =>
+      validateName(surnameInput, "surname")
+    );
     emailInput.addEventListener("input", validateEmail);
 
     phoneInput.addEventListener("input", () => {
@@ -199,18 +188,20 @@
     });
 
     addressInput.addEventListener("input", validateAddress);
-    rating1Input.addEventListener("input", () => validateRating(rating1Input, "rating1"));
-    rating2Input.addEventListener("input", () => validateRating(rating2Input, "rating2"));
-    rating3Input.addEventListener("input", () => validateRating(rating3Input, "rating3"));
+    rating1Input.addEventListener("input", () =>
+      validateRating(rating1Input, "rating1")
+    );
+    rating2Input.addEventListener("input", () =>
+      validateRating(rating2Input, "rating2")
+    );
+    rating3Input.addEventListener("input", () =>
+      validateRating(rating3Input, "rating3")
+    );
 
     updateSubmitState();
 
-    /* ----------------------------
-       FORM SUBMIT HANDLER
-       ---------------------------- */
-
     form.addEventListener("submit", function (event) {
-      event.preventDefault(); // prevent page reload
+      event.preventDefault();
 
       if (!isFormValid()) {
         return;
@@ -231,10 +222,8 @@
         rating3: rating3,
       };
 
-      // 1) Print the object in the browser console
       console.log("Submitted contact form data:", data);
 
-      // 2) Display same data below the form, one item per line
       if (formOutput) {
         formOutput.innerHTML = `
           <p><strong>Name:</strong> ${data.name}</p>
@@ -249,7 +238,6 @@
         formOutput.classList.remove("d-none");
       }
 
-      // 3) Calculate and display average rating
       const average = ((rating1 + rating2 + rating3) / 3).toFixed(1);
 
       if (averageOutput) {
@@ -270,18 +258,13 @@
         `;
       }
 
-      // 4) Show success confirmation popup
       showSuccessPopup();
-
-      // If you want to clear form after submit, uncomment below:
-      // form.reset();
-      // updateSubmitState();
     });
   });
 })();
 
 /* =======================================
-   MEMORY GAME – FLIP CARD LOGIC (NEW)
+   MEMORY GAME – FLIP CARDS + TIMER + BEST
    ======================================= */
 
 (function () {
@@ -296,12 +279,27 @@
     const startBtn = document.getElementById("mg-start");
     const restartBtn = document.getElementById("mg-restart");
 
-    if (!boardEl || !movesEl || !matchesEl || !messageEl || !diffEl || !startBtn || !restartBtn) {
-      return; // section not present
+    const timerEl = document.getElementById("mg-timer");
+    const bestEasyEl = document.getElementById("mg-best-easy");
+    const bestHardEl = document.getElementById("mg-best-hard");
+
+    if (
+      !boardEl ||
+      !movesEl ||
+      !matchesEl ||
+      !messageEl ||
+      !diffEl ||
+      !startBtn ||
+      !restartBtn ||
+      !timerEl ||
+      !bestEasyEl ||
+      !bestHardEl
+    ) {
+      return;
     }
 
-    // At least six unique items
     const MG_ICONS = ["🍎", "🚗", "🐶", "⚽", "🎧", "📚", "🌟", "🍕", "🎲", "🚀"];
+    const BEST_SCORES_KEY = "memoryGameBestScores";
 
     let mgDifficulty = "easy";
     let mgDeck = [];
@@ -313,7 +311,91 @@
     let mgTotalPairs = 0;
     let mgGameStarted = false;
 
-    // ---------- Helpers ----------
+    let mgTimerInterval = null;
+    let mgElapsedSeconds = 0;
+
+    let mgBestScores = {
+      easy: null,
+      hard: null,
+    };
+
+    function loadBestScores() {
+      try {
+        const stored = localStorage.getItem(BEST_SCORES_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (typeof parsed === "object" && parsed !== null) {
+            mgBestScores.easy =
+              typeof parsed.easy === "number" ? parsed.easy : null;
+            mgBestScores.hard =
+              typeof parsed.hard === "number" ? parsed.hard : null;
+          }
+        }
+      } catch (err) {
+        console.warn("Could not read best scores from localStorage:", err);
+      }
+      updateBestScoresUI();
+    }
+
+    function saveBestScores() {
+      try {
+        localStorage.setItem(BEST_SCORES_KEY, JSON.stringify(mgBestScores));
+      } catch (err) {
+        console.warn("Could not save best scores to localStorage:", err);
+      }
+    }
+
+    function updateBestScoresUI() {
+      bestEasyEl.textContent =
+        mgBestScores.easy !== null ? mgBestScores.easy : "–";
+      bestHardEl.textContent =
+        mgBestScores.hard !== null ? mgBestScores.hard : "–";
+    }
+
+    function maybeUpdateBestScore() {
+      const currentBest = mgBestScores[mgDifficulty];
+      if (currentBest === null || mgMoves < currentBest) {
+        mgBestScores[mgDifficulty] = mgMoves;
+        saveBestScores();
+        updateBestScoresUI();
+      }
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      const mm = mins.toString().padStart(2, "0");
+      const ss = secs.toString().padStart(2, "0");
+      return `${mm}:${ss}`;
+    }
+
+    function updateTimerUI() {
+      timerEl.textContent = formatTime(mgElapsedSeconds);
+    }
+
+    function startTimer() {
+      stopTimer();
+      mgElapsedSeconds = 0;
+      updateTimerUI();
+
+      mgTimerInterval = setInterval(() => {
+        mgElapsedSeconds += 1;
+        updateTimerUI();
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (mgTimerInterval !== null) {
+        clearInterval(mgTimerInterval);
+        mgTimerInterval = null;
+      }
+    }
+
+    function resetTimer() {
+      stopTimer();
+      mgElapsedSeconds = 0;
+      updateTimerUI();
+    }
 
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -325,8 +407,6 @@
 
     function createDeck() {
       const isEasy = mgDifficulty === "easy";
-      // Easy: 4x3 => 12 cards => 6 pairs
-      // Hard: 6x4 => 24 cards => 12 pairs
       const pairCount = isEasy ? 6 : 12;
       const chosenIcons = MG_ICONS.slice(0, pairCount);
 
@@ -392,16 +472,22 @@
 
     function startGame() {
       resetStats();
+      resetTimer();
       createDeck();
       renderBoard();
       mgGameStarted = true;
       restartBtn.disabled = false;
+      startTimer();
     }
 
     function handleCardClick(cardEl) {
       if (!mgGameStarted) return;
       if (mgLockBoard) return;
-      if (cardEl.classList.contains("flipped") || cardEl.classList.contains("matched")) return;
+      if (
+        cardEl.classList.contains("flipped") ||
+        cardEl.classList.contains("matched")
+      )
+        return;
 
       cardEl.classList.add("flipped");
 
@@ -447,10 +533,13 @@
     }
 
     function showWinMessage() {
-      messageEl.textContent = `You won! Completed in ${mgMoves} moves. 🎉`;
-    }
+      stopTimer();
 
-    // ---------- Event bindings ----------
+      const timeString = formatTime(mgElapsedSeconds);
+      messageEl.textContent = `You won! Completed in ${mgMoves} moves in ${timeString}. 🎉`;
+
+      maybeUpdateBestScore();
+    }
 
     startBtn.addEventListener("click", function () {
       startGame();
@@ -462,11 +551,11 @@
 
     diffEl.addEventListener("change", function (e) {
       mgDifficulty = e.target.value;
-      // When difficulty changes, reinitialize game
       startGame();
     });
 
-    // initial stats
     updateStatsUI();
+    resetTimer();
+    loadBestScores();
   });
 })();

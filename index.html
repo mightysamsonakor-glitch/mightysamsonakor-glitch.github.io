@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -60,7 +60,6 @@
     <!-- HERO -->
     <section id="hero" class="hero section light-background">
       <img src="assets/img/hero-bg.jpg" alt="Blue abstract hero background">
-      <!-- fade-in animation class -->
       <div class="container lab-fade-in" data-aos="zoom-out">
         <div class="row justify-content-center">
           <div class="col-lg-9">
@@ -126,7 +125,6 @@
               to integrate modern technology with practical experience.
             </p>
 
-            <!-- LAB 9 OPTIONAL LISTS (UNORDERED + ORDERED) -->
             <h3>Core Skills</h3>
             <ul class="lab-list-bullet">
               <li>Front-end development
@@ -147,7 +145,6 @@
               <li>Implementation, testing and troubleshooting</li>
               <li>Deployment, monitoring and maintenance</li>
             </ol>
-            <!-- END LAB 9 OPTIONAL LISTS -->
 
           </div>
         </div>
@@ -198,7 +195,6 @@
             </div>
           </div>
 
-          <!-- EXPERIENCE -->
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <h3 class="resume-title">Professional Experience</h3>
 
@@ -236,7 +232,6 @@
 
         </div>
 
-        <!-- LAB 9 OPTIONAL TABLE -->
         <div class="row mt-4" data-aos="fade-up" data-aos-delay="250">
           <div class="col-lg-12">
             <h3>Skill Overview</h3>
@@ -268,7 +263,6 @@
             </table>
           </div>
         </div>
-        <!-- END LAB 9 OPTIONAL TABLE -->
 
       </div>
     </section>
@@ -302,6 +296,13 @@
                 </div>
               </div>
 
+              <!-- TIMER -->
+              <div class="mg-timer mt-3">
+                <div class="small text-uppercase text-muted">Time</div>
+                <div class="fs-5"><span id="mg-timer">00:00</span></div>
+              </div>
+
+              <!-- LIVE STATS -->
               <div class="mg-stats mt-3">
                 <div>
                   <div class="small text-uppercase text-muted">Moves</div>
@@ -313,6 +314,15 @@
                 </div>
               </div>
 
+              <!-- BEST SCORES -->
+              <div class="mg-best mt-3">
+                <div class="small text-uppercase text-muted">Best (Easy)</div>
+                <div class="fs-6"><span id="mg-best-easy">–</span> moves</div>
+
+                <div class="small text-uppercase text-muted mt-2">Best (Hard)</div>
+                <div class="fs-6"><span id="mg-best-hard">–</span> moves</div>
+              </div>
+
               <div id="mg-message" class="mg-message mt-3" aria-live="polite"></div>
             </div>
           </div>
@@ -320,7 +330,6 @@
           <!-- Right: game board -->
           <div class="col-lg-8">
             <div class="mg-board-wrapper lab-surface">
-              <!-- aria-label removed to satisfy validator -->
               <div id="mg-board" class="mg-board easy"></div>
             </div>
           </div>
@@ -331,7 +340,6 @@
     <!-- PORTFOLIO -->
     <section id="portfolio" class="portfolio section">
 
-      <!-- OPTIONAL TASK 2 – FLOATING SHAPES -->
       <div class="shape-circle" aria-hidden="true" style="top:-60px; left:-40px;"></div>
       <div class="shape-circle small" aria-hidden="true" style="bottom:-50px; right:-30px;"></div>
 
@@ -343,7 +351,6 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-4">
 
-          <!-- ITEM 1 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
             <div class="portfolio-box">
               <a href="assets/img/custom/mtu4.jpg"
@@ -358,7 +365,6 @@
             </div>
           </div>
 
-          <!-- ITEM 2 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
             <div class="portfolio-box">
               <a href="assets/img/custom/mtu3.jpg"
@@ -373,7 +379,6 @@
             </div>
           </div>
 
-          <!-- ITEM 3 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
             <div class="portfolio-box">
               <a href="assets/img/custom/mtu2.jpg"
@@ -388,7 +393,6 @@
             </div>
           </div>
 
-          <!-- ITEM 4 -->
           <div class="col-lg-3 col-md-6 portfolio-item">
             <div class="portfolio-box">
               <a href="assets/img/custom/mtu1.jpg"
@@ -417,7 +421,6 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-4">
 
-          <!-- SERVICE 1: LOCAL VIDEO -->
           <div class="col-lg-4 col-md-6">
             <h4>Technical Repair Demo Video</h4>
             <video style="width:100%;" controls>
@@ -426,7 +429,6 @@
             </video>
           </div>
 
-          <!-- SERVICE 2: YOUTUBE EMBED -->
           <div class="col-lg-4 col-md-6">
             <h4>Training Video</h4>
             <iframe
@@ -437,7 +439,6 @@
             </iframe>
           </div>
 
-          <!-- SERVICE 3: AUDIO -->
           <div class="col-lg-4 col-md-6">
             <h4>Audio Explanation</h4>
             <audio controls>
@@ -460,7 +461,6 @@
       <div class="container" data-aos="fade" data-aos-delay="100">
         <div class="row gy-4">
 
-          <!-- LEFT SIDE: STATIC INFO -->
           <div class="col-lg-4">
             <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
               <i class="bi bi-geo-alt"></i>
@@ -487,7 +487,6 @@
             </div>
           </div>
 
-          <!-- RIGHT SIDE: HW11 CONTACT FORM -->
           <div class="col-lg-8">
             <div class="lab-contact-card" data-aos="fade-up" data-aos-delay="250">
               <form id="contact-form" novalidate>
@@ -522,7 +521,6 @@
                     <small class="lab-error-message" id="error-address"></small>
                   </div>
 
-                  <!-- RATING QUESTIONS (1–10) -->
                   <div class="col-md-4">
                     <label for="rating1" class="form-label">Service quality (1–10)</label>
                     <input type="number" class="form-control" id="rating1" name="rating1" min="1" max="10" required>
@@ -547,7 +545,6 @@
                 </div>
               </form>
 
-              <!-- AREA WHERE JS WILL PRINT FORM DATA -->
               <div id="form-output" class="lab-form-output d-none mt-4"></div>
               <p id="average-output" class="lab-average-output mt-2"></p>
             </div>
@@ -585,7 +582,6 @@
 
   <div id="preloader"></div>
 
-  <!-- Toast-style popup for successful submission -->
   <div id="form-success-popup" class="lab-success-popup" role="status" aria-live="polite">
     <i class="bi bi-check-circle-fill me-2"></i>
     <span>Form submitted successfully!</span>
@@ -606,7 +602,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- HW11 + Memory Game JS – MUST BE LAST -->
+  <!-- Custom JS – contact form + memory game -->
   <script src="assets/js/custom.js"></script>
 
 </body>
