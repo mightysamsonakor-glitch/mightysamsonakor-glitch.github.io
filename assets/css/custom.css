@@ -385,7 +385,6 @@ section {
 }
 
 /* Controls + stats */
-
 .mg-controls {
   display: flex;
   flex-direction: column;
@@ -410,7 +409,6 @@ section {
 }
 
 /* Win / status message */
-
 .mg-message {
   min-height: 1.6rem;
   font-weight: 600;
@@ -418,7 +416,6 @@ section {
 }
 
 /* Board grid */
-
 .mg-board {
   display: grid;
   gap: 0.6rem;
@@ -426,19 +423,16 @@ section {
 }
 
 /* Easy: 4 x 3 */
-
 .mg-board.easy {
   grid-template-columns: repeat(4, 1fr);
 }
 
 /* Hard: 6 x 4 */
-
 .mg-board.hard {
   grid-template-columns: repeat(6, 1fr);
 }
 
 /* Cards */
-
 .mg-card {
   position: relative;
   width: 100%;
@@ -475,8 +469,6 @@ section {
   transform: rotateY(180deg);
 }
 
-/* flipped / matched */
-
 .mg-card.flipped .mg-card-inner,
 .mg-card.matched .mg-card-inner {
   transform: rotateY(180deg);
@@ -485,6 +477,7 @@ section {
 .mg-card.matched .mg-card-back {
   box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.7);
 }
+
 
 /* small screens */
 

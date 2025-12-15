@@ -268,74 +268,75 @@
     </section>
 
     <!-- ===============================
-         MEMORY GAME SECTION
-         =============================== -->
-    <section id="memory-game" class="section memory-game-section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Memory Game</h2>
-        <p>Test your memory by matching pairs of icons. Choose a difficulty level and try to finish with the fewest moves.</p>
-      </div>
+     MEMORY GAME SECTION
+     =============================== -->
+<section id="memory-game" class="section memory-game-section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Memory Game</h2>
+    <p>Test your memory by matching pairs of icons. Choose a difficulty level and try to finish with the fewest moves.</p>
+  </div>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-4">
-          <!-- Left: controls + stats -->
-          <div class="col-lg-4">
-            <div class="mg-panel lab-surface">
-              <h3 class="mb-3">Game Controls</h3>
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+      <!-- Left: controls + stats -->
+      <div class="col-lg-4">
+        <div class="mg-panel lab-surface">
+          <h3 class="mb-3">Game Controls</h3>
 
-              <div class="mg-controls">
-                <label for="mg-difficulty" class="form-label mb-0">Difficulty</label>
-                <select id="mg-difficulty" class="form-select form-select-sm">
-                  <option value="easy">Easy (4 × 3)</option>
-                  <option value="hard">Hard (6 × 4)</option>
-                </select>
+          <div class="mg-controls">
+            <label for="mg-difficulty" class="form-label mb-0">Difficulty</label>
+            <select id="mg-difficulty" class="form-select form-select-sm">
+              <option value="easy">Easy (4 × 3)</option>
+              <option value="hard">Hard (6 × 4)</option>
+            </select>
 
-                <div class="d-flex gap-2 mt-3">
-                  <button id="mg-start" type="button" class="btn btn-sm">Start</button>
-                  <button id="mg-restart" type="button" class="btn btn-sm" disabled>Restart</button>
-                </div>
-              </div>
-
-              <!-- TIMER -->
-              <div class="mg-timer mt-3">
-                <div class="small text-uppercase text-muted">Time</div>
-                <div class="fs-5"><span id="mg-timer">00:00</span></div>
-              </div>
-
-              <!-- LIVE STATS -->
-              <div class="mg-stats mt-3">
-                <div>
-                  <div class="small text-uppercase text-muted">Moves</div>
-                  <div class="fs-5"><span id="mg-moves">0</span></div>
-                </div>
-                <div>
-                  <div class="small text-uppercase text-muted">Matched pairs</div>
-                  <div class="fs-5"><span id="mg-matches">0</span></div>
-                </div>
-              </div>
-
-              <!-- BEST SCORES -->
-              <div class="mg-best mt-3">
-                <div class="small text-uppercase text-muted">Best (Easy)</div>
-                <div class="fs-6"><span id="mg-best-easy">–</span> moves</div>
-
-                <div class="small text-uppercase text-muted mt-2">Best (Hard)</div>
-                <div class="fs-6"><span id="mg-best-hard">–</span> moves</div>
-              </div>
-
-              <div id="mg-message" class="mg-message mt-3" aria-live="polite"></div>
+            <div class="d-flex gap-2 mt-3">
+              <button id="mg-start" type="button" class="btn btn-sm">Start</button>
+              <button id="mg-restart" type="button" class="btn btn-sm" disabled>Restart</button>
             </div>
           </div>
 
-          <!-- Right: game board -->
-          <div class="col-lg-8">
-            <div class="mg-board-wrapper lab-surface">
-              <div id="mg-board" class="mg-board easy"></div>
+          <!-- TIMER -->
+          <div class="mg-timer mt-3">
+            <div class="small text-uppercase text-muted">Time</div>
+            <div class="fs-5"><span id="mg-timer">00:00</span></div>
+          </div>
+
+          <!-- LIVE STATS -->
+          <div class="mg-stats mt-3">
+            <div>
+              <div class="small text-uppercase text-muted">Moves</div>
+              <div class="fs-5"><span id="mg-moves">0</span></div>
+            </div>
+            <div>
+              <div class="small text-uppercase text-muted">Matched pairs</div>
+              <div class="fs-5"><span id="mg-matches">0</span></div>
             </div>
           </div>
+
+          <!-- BEST SCORES -->
+          <div class="mg-best mt-3">
+            <div class="small text-uppercase text-muted">Best (Easy)</div>
+            <div class="fs-6"><span id="mg-best-easy">–</span> moves</div>
+
+            <div class="small text-uppercase text-muted mt-2">Best (Hard)</div>
+            <div class="fs-6"><span id="mg-best-hard">–</span> moves</div>
+          </div>
+
+          <div id="mg-message" class="mg-message mt-3" aria-live="polite"></div>
         </div>
       </div>
-    </section>
+
+      <!-- Right: game board -->
+      <div class="col-lg-8">
+        <div class="mg-board-wrapper lab-surface">
+          <div id="mg-board" class="mg-board easy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- PORTFOLIO -->
     <section id="portfolio" class="portfolio section">

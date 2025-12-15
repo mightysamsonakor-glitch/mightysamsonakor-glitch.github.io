@@ -1,5 +1,5 @@
 // assets/js/custom.js
-// Contact form logic + Memory Game
+// Contact form logic + Memory Game (with timer + best score + fixed hard deck)
 
 (function () {
   "use strict";
@@ -27,11 +27,8 @@
       const inputEl = document.getElementById(id);
       if (!el || !inputEl) return;
       el.textContent = message || "";
-      if (message) {
-        inputEl.classList.add("is-invalid");
-      } else {
-        inputEl.classList.remove("is-invalid");
-      }
+      if (message) inputEl.classList.add("is-invalid");
+      else inputEl.classList.remove("is-invalid");
       updateSubmitState();
     }
 
@@ -174,12 +171,8 @@
       submitBtn.disabled = !hasValues || Boolean(anyError);
     }
 
-    firstNameInput.addEventListener("input", () =>
-      validateName(firstNameInput, "firstName")
-    );
-    surnameInput.addEventListener("input", () =>
-      validateName(surnameInput, "surname")
-    );
+    firstNameInput.addEventListener("input", () => validateName(firstNameInput, "firstName"));
+    surnameInput.addEventListener("input", () => validateName(surnameInput, "surname"));
     emailInput.addEventListener("input", validateEmail);
 
     phoneInput.addEventListener("input", () => {
@@ -188,24 +181,16 @@
     });
 
     addressInput.addEventListener("input", validateAddress);
-    rating1Input.addEventListener("input", () =>
-      validateRating(rating1Input, "rating1")
-    );
-    rating2Input.addEventListener("input", () =>
-      validateRating(rating2Input, "rating2")
-    );
-    rating3Input.addEventListener("input", () =>
-      validateRating(rating3Input, "rating3")
-    );
+    rating1Input.addEventListener("input", () => validateRating(rating1Input, "rating1"));
+    rating2Input.addEventListener("input", () => validateRating(rating2Input, "rating2"));
+    rating3Input.addEventListener("input", () => validateRating(rating3Input, "rating3"));
 
     updateSubmitState();
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      if (!isFormValid()) {
-        return;
-      }
+      if (!isFormValid()) return;
 
       const rating1 = getNumberFromInput(rating1Input);
       const rating2 = getNumberFromInput(rating2Input);
@@ -217,9 +202,9 @@
         email: emailInput.value.trim(),
         phone: phoneInput.value.trim(),
         address: addressInput.value.trim(),
-        rating1: rating1,
-        rating2: rating2,
-        rating3: rating3,
+        rating1,
+        rating2,
+        rating3,
       };
 
       console.log("Submitted contact form data:", data);
@@ -239,18 +224,10 @@
       }
 
       const average = ((rating1 + rating2 + rating3) / 3).toFixed(1);
-
       if (averageOutput) {
-        let averageClass = "";
         const avgNumber = parseFloat(average);
-
-        if (avgNumber < 4) {
-          averageClass = "average-low";
-        } else if (avgNumber < 7) {
-          averageClass = "average-medium";
-        } else {
-          averageClass = "average-high";
-        }
+        const averageClass =
+          avgNumber < 4 ? "average-low" : avgNumber < 7 ? "average-medium" : "average-high";
 
         averageOutput.innerHTML = `
           ${data.name} ${data.surname}: 
@@ -264,7 +241,8 @@
 })();
 
 /* =======================================
-   MEMORY GAME – FLIP CARDS + TIMER + BEST
+   MEMORY GAME – FIXED HARD MODE (24 cards)
+   + TIMER + BEST SCORE (localStorage)
    ======================================= */
 
 (function () {
@@ -283,25 +261,18 @@
     const bestEasyEl = document.getElementById("mg-best-easy");
     const bestHardEl = document.getElementById("mg-best-hard");
 
-    if (
-      !boardEl ||
-      !movesEl ||
-      !matchesEl ||
-      !messageEl ||
-      !diffEl ||
-      !startBtn ||
-      !restartBtn ||
-      !timerEl ||
-      !bestEasyEl ||
-      !bestHardEl
-    ) {
+    if (!boardEl || !movesEl || !matchesEl || !messageEl || !diffEl || !startBtn || !restartBtn || !timerEl || !bestEasyEl || !bestHardEl) {
       return;
     }
 
-    const MG_ICONS = ["🍎", "🚗", "🐶", "⚽", "🎧", "📚", "🌟", "🍕", "🎲", "🚀"];
+    // ✅ MUST HAVE AT LEAST 12 UNIQUE ICONS FOR HARD (12 pairs)
+    const MG_ICONS = [
+      "🍎","🚗","🐶","⚽","🎧","📚","🌟","🍕","🎲","🚀","🎯","🧩","🎸","🛠️"
+    ];
+
     const BEST_SCORES_KEY = "memoryGameBestScores";
 
-    let mgDifficulty = "easy";
+    let mgDifficulty = diffEl.value || "easy"; // ✅ read from dropdown
     let mgDeck = [];
     let mgFirstCard = null;
     let mgSecondCard = null;
@@ -314,42 +285,31 @@
     let mgTimerInterval = null;
     let mgElapsedSeconds = 0;
 
-    let mgBestScores = {
-      easy: null,
-      hard: null,
-    };
+    let mgBestScores = { easy: null, hard: null };
 
     function loadBestScores() {
       try {
         const stored = localStorage.getItem(BEST_SCORES_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (typeof parsed === "object" && parsed !== null) {
-            mgBestScores.easy =
-              typeof parsed.easy === "number" ? parsed.easy : null;
-            mgBestScores.hard =
-              typeof parsed.hard === "number" ? parsed.hard : null;
+          if (parsed && typeof parsed === "object") {
+            mgBestScores.easy = typeof parsed.easy === "number" ? parsed.easy : null;
+            mgBestScores.hard = typeof parsed.hard === "number" ? parsed.hard : null;
           }
         }
-      } catch (err) {
-        console.warn("Could not read best scores from localStorage:", err);
-      }
+      } catch (e) {}
       updateBestScoresUI();
     }
 
     function saveBestScores() {
       try {
         localStorage.setItem(BEST_SCORES_KEY, JSON.stringify(mgBestScores));
-      } catch (err) {
-        console.warn("Could not save best scores to localStorage:", err);
-      }
+      } catch (e) {}
     }
 
     function updateBestScoresUI() {
-      bestEasyEl.textContent =
-        mgBestScores.easy !== null ? mgBestScores.easy : "–";
-      bestHardEl.textContent =
-        mgBestScores.hard !== null ? mgBestScores.hard : "–";
+      bestEasyEl.textContent = mgBestScores.easy !== null ? mgBestScores.easy : "–";
+      bestHardEl.textContent = mgBestScores.hard !== null ? mgBestScores.hard : "–";
     }
 
     function maybeUpdateBestScore() {
@@ -364,9 +324,7 @@
     function formatTime(seconds) {
       const mins = Math.floor(seconds / 60);
       const secs = seconds % 60;
-      const mm = mins.toString().padStart(2, "0");
-      const ss = secs.toString().padStart(2, "0");
-      return `${mm}:${ss}`;
+      return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
     }
 
     function updateTimerUI() {
@@ -377,7 +335,6 @@
       stopTimer();
       mgElapsedSeconds = 0;
       updateTimerUI();
-
       mgTimerInterval = setInterval(() => {
         mgElapsedSeconds += 1;
         updateTimerUI();
@@ -385,7 +342,7 @@
     }
 
     function stopTimer() {
-      if (mgTimerInterval !== null) {
+      if (mgTimerInterval) {
         clearInterval(mgTimerInterval);
         mgTimerInterval = null;
       }
@@ -406,18 +363,16 @@
     }
 
     function createDeck() {
-      const isEasy = mgDifficulty === "easy";
-      const pairCount = isEasy ? 6 : 12;
+      const pairCount = mgDifficulty === "easy" ? 6 : 12;
       const chosenIcons = MG_ICONS.slice(0, pairCount);
 
       mgTotalPairs = pairCount;
 
       const cards = [];
       chosenIcons.forEach((icon, index) => {
-        const pairId = index;
         cards.push(
-          { id: `${pairId}-a`, icon, pairId },
-          { id: `${pairId}-b`, icon, pairId }
+          { id: `${index}-a`, icon, pairId: index },
+          { id: `${index}-b`, icon, pairId: index }
         );
       });
 
@@ -431,9 +386,8 @@
 
       mgDeck.forEach((card) => {
         const cardEl = document.createElement("div");
-        cardEl.classList.add("mg-card");
-        cardEl.dataset.id = card.id;
-        cardEl.dataset.pairId = card.pairId;
+        cardEl.className = "mg-card";
+        cardEl.dataset.pairId = String(card.pairId);
 
         cardEl.innerHTML = `
           <div class="mg-card-inner">
@@ -442,12 +396,14 @@
           </div>
         `;
 
-        cardEl.addEventListener("click", function () {
-          handleCardClick(cardEl);
-        });
-
+        cardEl.addEventListener("click", () => handleCardClick(cardEl));
         boardEl.appendChild(cardEl);
       });
+    }
+
+    function updateStatsUI() {
+      movesEl.textContent = String(mgMoves);
+      matchesEl.textContent = `${mgMatches} / ${mgTotalPairs}`;
     }
 
     function resetStats() {
@@ -457,24 +413,19 @@
       mgSecondCard = null;
       mgLockBoard = false;
       mgGameStarted = false;
-      updateStatsUI();
       messageEl.textContent = "";
-    }
-
-    function updateStatsUI() {
-      movesEl.textContent = mgMoves;
-      if (mgTotalPairs > 0) {
-        matchesEl.textContent = `${mgMatches} / ${mgTotalPairs}`;
-      } else {
-        matchesEl.textContent = "0";
-      }
+      updateStatsUI();
     }
 
     function startGame() {
       resetStats();
       resetTimer();
-      createDeck();
+
+      mgDifficulty = diffEl.value || "easy"; // ✅ always read current difficulty
+      createDeck();                           // ✅ sets mgTotalPairs correctly (6 or 12)
+      updateStatsUI();                        // ✅ updates 0/12 for hard
       renderBoard();
+
       mgGameStarted = true;
       restartBtn.disabled = false;
       startTimer();
@@ -483,11 +434,7 @@
     function handleCardClick(cardEl) {
       if (!mgGameStarted) return;
       if (mgLockBoard) return;
-      if (
-        cardEl.classList.contains("flipped") ||
-        cardEl.classList.contains("matched")
-      )
-        return;
+      if (cardEl.classList.contains("flipped") || cardEl.classList.contains("matched")) return;
 
       cardEl.classList.add("flipped");
 
@@ -498,24 +445,27 @@
 
       mgSecondCard = cardEl;
       mgLockBoard = true;
-      mgMoves++;
+
+      mgMoves += 1;
       updateStatsUI();
       checkForMatch();
     }
 
     function checkForMatch() {
-      const firstPairId = mgFirstCard.dataset.pairId;
-      const secondPairId = mgSecondCard.dataset.pairId;
+      const a = mgFirstCard.dataset.pairId;
+      const b = mgSecondCard.dataset.pairId;
 
-      if (firstPairId === secondPairId) {
+      if (a === b) {
         mgFirstCard.classList.add("matched");
         mgSecondCard.classList.add("matched");
-        mgMatches++;
+        mgMatches += 1;
         updateStatsUI();
         resetTurn();
 
         if (mgMatches === mgTotalPairs) {
-          showWinMessage();
+          stopTimer();
+          messageEl.textContent = `You won! Completed in ${mgMoves} moves in ${formatTime(mgElapsedSeconds)}. 🎉`;
+          maybeUpdateBestScore();
         }
       } else {
         setTimeout(() => {
@@ -532,30 +482,16 @@
       mgLockBoard = false;
     }
 
-    function showWinMessage() {
-      stopTimer();
+    startBtn.addEventListener("click", startGame);
+    restartBtn.addEventListener("click", startGame);
 
-      const timeString = formatTime(mgElapsedSeconds);
-      messageEl.textContent = `You won! Completed in ${mgMoves} moves in ${timeString}. 🎉`;
-
-      maybeUpdateBestScore();
-    }
-
-    startBtn.addEventListener("click", function () {
+    diffEl.addEventListener("change", function () {
       startGame();
     });
 
-    restartBtn.addEventListener("click", function () {
-      startGame();
-    });
-
-    diffEl.addEventListener("change", function (e) {
-      mgDifficulty = e.target.value;
-      startGame();
-    });
-
-    updateStatsUI();
+    // init
     resetTimer();
     loadBestScores();
+    updateStatsUI();
   });
 })();
